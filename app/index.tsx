@@ -21,7 +21,7 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           
           <Card variant="elevated" style={styles.card}>
-            <View style={[styles.cardHeader, { backgroundColor: colors.accent.tealLight }]}>
+            <View style={[styles.cardHeader, { backgroundColor: colors.accent.orangeLight }]}>
               <Text style={styles.cardTitle}>Daily Inventory</Text>
             </View>
             <Text style={styles.cardDescription}>
@@ -31,7 +31,7 @@ export default function HomeScreen() {
               <Button 
                 title="Start Inventory" 
                 onPress={() => {}}
-                variant="teal"
+                variant="orange"
               />
             </Link>
           </Card>
@@ -52,7 +52,7 @@ export default function HomeScreen() {
           </Card>
 
           <Card variant="elevated" style={styles.card}>
-            <View style={[styles.cardHeader, { backgroundColor: colors.accent.orangeLight }]}>
+            <View style={[styles.cardHeader, { backgroundColor: colors.accent.purpleLight }]}>
               <Text style={styles.cardTitle}>Support Resources</Text>
             </View>
             <Text style={styles.cardDescription}>
@@ -61,7 +61,7 @@ export default function HomeScreen() {
             <Button 
               title="Coming Soon" 
               onPress={() => {}}
-              variant="orange"
+              variant="purple"
               disabled
             />
           </Card>
