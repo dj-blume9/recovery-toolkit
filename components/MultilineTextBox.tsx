@@ -1,5 +1,5 @@
 import { View, Text, TextInput } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { inputStyles } from '../styles/components/input.styles';
 
 type Props = {
@@ -12,6 +12,10 @@ type Props = {
 const MultilineTextBox = (props: Props) => {
     const [text, setText] = useState(props.value || '');
     const [isFocused, setIsFocused] = useState(false);
+
+    useEffect(() => {
+        setText(props.value || '');
+    }, [props.value]);
 
     const handleChangeText = (value: string) => {
         setText(value);
