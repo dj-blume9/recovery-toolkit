@@ -1,24 +1,36 @@
-
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { colors, typography } from '../styles/theme';
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <Stack
         screenOptions={{
+          headerShown: true,
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: colors.primary.teal,
           },
-          headerTintColor: '#fff',
+          headerTintColor: colors.neutral.white,
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: typography.fontWeight.bold,
+            fontSize: typography.fontSize.xl,
           },
-          headerTitle: 'Recovery Toolkit'
+          headerShadowVisible: true,
         }}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen 
+          name="index"
+          options={{
+            headerTitle: 'Recovery Toolkit',
+          }}
+        />
+        <Stack.Screen 
+          name="inventory"
+          options={{
+            headerTitle: 'Daily Inventory',
+          }}
+        />
       </Stack>
     </SafeAreaProvider>
-
   );
 }
