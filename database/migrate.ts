@@ -29,7 +29,6 @@ export async function migrate(db: SQLiteDatabase) {
                     daily_inventories_id TEXT NOT NULL REFERENCES daily_inventories(id) ON DELETE CASCADE,
                     daily_inventory_prompts_id TEXT NOT NULL REFERENCES daily_inventory_prompts(id),
                     value_text TEXT,
-                    value_num REAL,
                     created_at TEXT NOT NULL DEFAULT (datetime('now')),
                     updated_at TEXT NOT NULL DEFAULT (datetime('now')),
                     UNIQUE(daily_inventories_id, daily_inventory_prompts_id)

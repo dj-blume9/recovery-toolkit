@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import Card from '../components/Card';
 import Button from '../components/Button';
@@ -65,6 +65,25 @@ export default function HomeScreen() {
               disabled
             />
           </Card>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>My Progress</Text>
+          
+          <Link href="/history" asChild>
+            <TouchableOpacity style={styles.menuItem} activeOpacity={0.7}>
+              <View style={styles.menuItemLeft}>
+                <View style={[styles.menuIcon, { backgroundColor: colors.accent.tealLight }]}>
+                  <Text style={styles.menuIconText}>📖</Text>
+                </View>
+                <View style={styles.menuItemContent}>
+                  <Text style={styles.menuItemTitle}>Inventory History</Text>
+                  <Text style={styles.menuItemDescription}>View past daily reflections</Text>
+                </View>
+              </View>
+              <Text style={styles.menuChevron}>›</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
 
         <View style={styles.footer}>
@@ -144,5 +163,48 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
     lineHeight: 24,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.neutral.white,
+    padding: spacing.md,
+    borderRadius: 12,
+    marginBottom: spacing.sm,
+    ...shadows.sm,
+  },
+  menuItemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  menuIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  menuIconText: {
+    fontSize: 24,
+  },
+  menuItemContent: {
+    flex: 1,
+  },
+  menuItemTitle: {
+    ...typography.styles.h4,
+    color: colors.neutral.charcoal,
+    marginBottom: spacing.xs,
+  },
+  menuItemDescription: {
+    ...typography.styles.bodySmall,
+    color: colors.neutral.mediumGray,
+  },
+  menuChevron: {
+    fontSize: 28,
+    color: colors.neutral.lightGray,
+    marginLeft: spacing.sm,
   },
 });

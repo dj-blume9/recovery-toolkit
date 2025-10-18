@@ -7,12 +7,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { screenStyles } from '../styles/layouts/screen.styles';
 import { colors, spacing, typography } from '../styles/theme';
 import { DailyInventoryPrompt, useDailyInventoriesRepo } from '../database/repo/dailyInventoriesRepo';
+import { Link } from 'expo-router';
+import { getTodayDate } from '../utils/helpers';
 
 export default function InventoryScreen() {
     const repo = useDailyInventoriesRepo();
     const [prompts, setPrompts] = useState<DailyInventoryPrompt[]>([]);
     const [loading, setLoading] = useState(true);
-    const [responses, setResponses] = useState<Record<string, string>>({});
+    const [responses, setResponses] = useState<Record<string, string | null>>({});
 
     useEffect(() => {
         async function loadPrompts() {
@@ -21,9 +23,17 @@ export default function InventoryScreen() {
                 const allPrompts = await repo.getAllPrompts();
                 setPrompts(allPrompts);
 
-                const initialResponses: Record<string, string> = {};
+                const today = getTodayDate();
+
+                const entries = await repo.getEntryByDate(today);
+
+                const initialResponses: Record<string, string | null> = {};
                 allPrompts.forEach(prompt => {
-                    initialResponses[prompt.code] = '';
+                    Object.entries(entries).forEach((e) => {
+                        if (e[1].code == prompt.code) {
+                            initialResponses[prompt.code] = e[1].value_text != null ? e[1].value_text : '';
+                        }
+                    });
                 });
                 setResponses(initialResponses);
             } catch (error) {
@@ -36,9 +46,19 @@ export default function InventoryScreen() {
         loadPrompts();
     }, []);
 
-    const handleSave = () => {
-        // TODO: Implement save functionality
-        console.log('Saving inventory...', responses);
+    const handleSave = async () => {
+        const today = getTodayDate();
+        let inventoryId = null;
+        inventoryId = await repo.getDailyInventoryId(today);
+        if (inventoryId == undefined) {
+
+            const newInventoryId = await repo.upsertDailyInventory(today);
+            inventoryId = newInventoryId;
+        }
+
+        Object.entries(responses).forEach(async ([code, value]) => {
+            await repo.saveAnswerByCode(inventoryId, code, value);
+        })
     };
 
     const handleClear = () => {
@@ -64,6 +84,7 @@ export default function InventoryScreen() {
                 enableOnAndroid
                 extraScrollHeight={120}
                 contentContainerStyle={styles.scrollContent}
+                keyboardShouldPersistTaps="handled"
             >
 
                 <SectionHeader
@@ -90,11 +111,11 @@ export default function InventoryScreen() {
                 {prompts
                     .filter(p => p.code.startsWith('2_') || p.code.startsWith('3_'))
                     .map(prompt => (
-                        <MultilineTextBox 
+                        <MultilineTextBox
                             key={prompt.id}
                             label={prompt.label}
                             value={responses[prompt.code] || ''}
-                            onChangeText={(text) => setResponses({...responses, [prompt.code]: text})}
+                            onChangeText={(text) => setResponses({ ...responses, [prompt.code]: text })}
                         />
                     ))
                 }
@@ -106,11 +127,11 @@ export default function InventoryScreen() {
                 {prompts
                     .filter(p => p.code.startsWith('4_') || p.code.startsWith('5_'))
                     .map(prompt => (
-                        <MultilineTextBox 
+                        <MultilineTextBox
                             key={prompt.id}
                             label={prompt.label}
                             value={responses[prompt.code] || ''}
-                            onChangeText={(text) => setResponses({...responses, [prompt.code]: text})}
+                            onChangeText={(text) => setResponses({ ...responses, [prompt.code]: text })}
                         />
                     ))
                 }
@@ -122,11 +143,11 @@ export default function InventoryScreen() {
                 {prompts
                     .filter(p => p.code.startsWith('6_'))
                     .map(prompt => (
-                        <MultilineTextBox 
+                        <MultilineTextBox
                             key={prompt.id}
                             label={prompt.label}
                             value={responses[prompt.code] || ''}
-                            onChangeText={(text) => setResponses({...responses, [prompt.code]: text})}
+                            onChangeText={(text) => setResponses({ ...responses, [prompt.code]: text })}
                         />
                     ))
                 }
@@ -138,22 +159,24 @@ export default function InventoryScreen() {
                 {prompts
                     .filter(p => p.code.startsWith('7_'))
                     .map(prompt => (
-                        <MultilineTextBox 
+                        <MultilineTextBox
                             key={prompt.id}
                             label={prompt.label}
                             value={responses[prompt.code] || ''}
-                            onChangeText={(text) => setResponses({...responses, [prompt.code]: text})}
+                            onChangeText={(text) => setResponses({ ...responses, [prompt.code]: text })}
                         />
                     ))
                 }
 
                 <View style={styles.buttonContainer}>
-                    <Button
-                        title="Save Inventory"
-                        onPress={handleSave}
-                        variant="teal"
-                        size="large"
-                    />
+                    <Link href="/" asChild>
+                        <Button
+                            title="Save Inventory"
+                            onPress={handleSave}
+                            variant="teal"
+                            size="large"
+                        />
+                    </Link>
                     <Button
                         title="Clear All"
                         onPress={handleClear}

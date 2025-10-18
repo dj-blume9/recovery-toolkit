@@ -33,6 +33,18 @@ export default function RootLayout() {
               headerTitle: 'Daily Inventory',
             }}
           />
+          <Stack.Screen
+            name="history"
+            options={{
+              headerTitle: 'History',
+            }}
+          />
+          <Stack.Screen
+            name="entry-detail"
+            options={{
+              headerTitle: 'Entry Details',
+            }}
+          />
         </Stack>
       </SafeAreaProvider>
     </SQLiteProvider>
