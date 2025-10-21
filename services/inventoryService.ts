@@ -19,9 +19,6 @@ type RawPrompt = {
   label: string;
 };
 
-/**
- * Transforms raw database responses into structured inventory entries
- */
 export function transformInventoryData(
   allResponses: RawInventoryData[],
   allInventories: RawInventory[],
@@ -66,9 +63,6 @@ export function transformInventoryData(
   return inventoryEntries;
 }
 
-/**
- * Filters entries to those within the last week
- */
 export function filterEntriesByWeek(entries: InventoryEntry[]): InventoryEntry[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -82,9 +76,6 @@ export function filterEntriesByWeek(entries: InventoryEntry[]): InventoryEntry[]
   });
 }
 
-/**
- * Filters entries to those in the current month
- */
 export function filterEntriesByMonth(entries: InventoryEntry[]): InventoryEntry[] {
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -98,9 +89,6 @@ export function filterEntriesByMonth(entries: InventoryEntry[]): InventoryEntry[
   });
 }
 
-/**
- * Applies the specified filter to entries
- */
 export function applyFilter(
   entries: InventoryEntry[],
   filter: 'all' | 'week' | 'month'

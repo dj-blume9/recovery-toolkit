@@ -1,8 +1,3 @@
-/**
- * Input Component Styles
- * Text input and form field styles
- */
-
 import { StyleSheet } from 'react-native';
 import { colors, spacing, typography, borderRadius } from '../theme';
 

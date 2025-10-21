@@ -1,8 +1,3 @@
-/**
- * Card Component Styles
- * Reusable card container styles
- */
-
 import { StyleSheet } from 'react-native';
 import { colors, spacing, shadows, borderRadius } from '../theme';
 

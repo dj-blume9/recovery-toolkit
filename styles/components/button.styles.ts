@@ -1,8 +1,3 @@
-/**
- * Button Component Styles
- * Various button variants and states
- */
-
 import { StyleSheet } from 'react-native';
 import { colors, spacing, typography, borderRadius, shadows } from '../theme';
 
