@@ -40,6 +40,19 @@ export async function migrate(db: SQLiteDatabase) {
                 PRAGMA user_version = 1;
             `)
         }
+
+        if (version < 2) {
+            await db.execAsync(
+                `                
+                CREATE TABLE IF NOT EXISTS app_settings (
+                    key TEXT PRIMARY KEY,
+                    value TEXT NOT NULL,
+                    updated_at TEXT NOT NULL DEFAULT(datetime('now'))
+                );
+
+                PRAGMA user_version = 2;`
+            )
+        }
     })
 
 }

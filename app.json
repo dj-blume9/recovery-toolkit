@@ -14,7 +14,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fivetooldev.recoverytoolkit"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +23,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.fivetooldev.recoverytoolkit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,6 +32,12 @@
     "plugins": [
       "expo-router",
       "expo-sqlite"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "67dd99b3-0e0a-4960-a3f1-ed6cd8866133"
+      }
+    }
   }
 }

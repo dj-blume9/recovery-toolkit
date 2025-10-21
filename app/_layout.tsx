@@ -1,8 +1,9 @@
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { colors, typography } from '../styles/theme';
 import { SQLiteProvider } from 'expo-sqlite';
 import { migrate } from '../database/migrate';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 export default function RootLayout() {
   return (
@@ -25,6 +26,11 @@ export default function RootLayout() {
             name="index"
             options={{
               headerTitle: 'Recovery Toolkit',
+              headerRight: () => {
+                return <Link style={{ marginRight: 12 }} href={'/settings'}>
+                  <FontAwesome6 name="gear" size={24} color="white" />
+                </Link>;
+              },
             }}
           />
           <Stack.Screen
@@ -43,6 +49,12 @@ export default function RootLayout() {
             name="entry-detail"
             options={{
               headerTitle: 'Entry Details',
+            }}
+          />
+          <Stack.Screen
+            name="settings"
+            options={{
+              headerTitle: 'Settings',
             }}
           />
         </Stack>
