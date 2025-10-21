@@ -1,8 +1,3 @@
-/**
- * Screen Layout Styles
- * Common screen container and layout patterns
- */
-
 import { StyleSheet } from 'react-native';
 import { colors, spacing } from '../theme';
 

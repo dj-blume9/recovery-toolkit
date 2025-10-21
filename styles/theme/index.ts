@@ -1,8 +1,3 @@
-/**
- * Theme Index
- * Central export for all theme tokens
- */
-
 export { colors } from './colors';
 export { spacing } from './spacing';
 export { typography } from './typography';

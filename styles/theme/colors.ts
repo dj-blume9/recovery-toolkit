@@ -1,8 +1,3 @@
-/**
- * Celebrate Recovery Color Palette
- * Centralized color definitions for consistent theming
- */
-
 export const colors = {
   // Core Brand Palette
   primary: {
@@ -12,7 +7,7 @@ export const colors = {
     purple: '#7C3E98',
   },
   
-  // Neutral Foundation
+  // Neutrals
   neutral: {
     charcoal: '#1C1C1C',
     white: '#FFFFFF',

@@ -1,8 +1,3 @@
-/**
- * Spacing System
- * 8px base unit for consistent spacing throughout the app
- */
-
 export const spacing = {
   xs: 4,
   sm: 8,

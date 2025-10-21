@@ -1,8 +1,3 @@
-/**
- * Typography System
- * Consistent text styles across the application
- */
-
 import { TextStyle } from 'react-native';
 import { colors } from './colors';
 

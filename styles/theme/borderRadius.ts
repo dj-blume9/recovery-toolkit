@@ -1,8 +1,3 @@
-/**
- * Border Radius System
- * Consistent corner rounding
- */
-
 export const borderRadius = {
   none: 0,
   xs: 4,

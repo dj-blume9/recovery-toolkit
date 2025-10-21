@@ -1,8 +1,3 @@
-/**
- * Shadow System
- * Elevation and depth for components
- */
-
 import { ViewStyle } from 'react-native';
 
 export const shadows = {

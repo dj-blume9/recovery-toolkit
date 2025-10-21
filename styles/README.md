@@ -1,7 +1,5 @@
 # Styling Architecture
 
-This directory contains a professional, scalable styling system for the Recovery Toolkit application, built with Celebrate Recovery branding.
-
 ## Directory Structure
 
 ```
@@ -25,8 +23,6 @@ styles/
 ## Design System
 
 ### Color Palette
-
-The application uses the Celebrate Recovery brand colors:
 
 **Core Brand Colors:**
 - **CR Teal** (`#009FB7`) - Primary CTAs, headers, Guide 1 theme
@@ -146,7 +142,3 @@ To add new styles:
 2. **New component styles**: Create new file in `components/`
 3. **New layouts**: Add to `layouts/`
 4. **Update this README** with new patterns
-
-## Migration Notes
-
-The old `generics.ts` file has been deprecated in favor of this modular system. Components should be updated to use the new theme-based approach for better maintainability and consistency.
