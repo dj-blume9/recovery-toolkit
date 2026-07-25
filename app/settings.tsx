@@ -7,15 +7,22 @@ import Card from "../components/Card";
 import { screenStyles } from "../styles/layouts/screen.styles";
 import { colors, spacing, typography } from "../styles/theme";
 
+
 export default function SettingsScreen() {
     const settingRepo = useSettingsRepo();
     const [recoveryStartDate, setRecoveryStartDate] = useState<string | null>(null);
+    const [sobrietyStreakStartDate, setSobrietyStreakStartDate] = useState<string | null>(null);
 
     useEffect(() => {
         async function loadSettings() {
             let rStartDate = await settingRepo.getSetting('recoveryStartDate');
+            let sobrietyStartDate = await settingRepo.getSetting('sobrietyStreakStartDate');
             if (rStartDate != null) {
                 setRecoveryStartDate(rStartDate.value);
+            }
+
+            if (sobrietyStartDate != null) {
+                setSobrietyStreakStartDate(sobrietyStartDate.value);
             }
 
         }
@@ -28,6 +35,13 @@ export default function SettingsScreen() {
         const newRecoveryStartDate = convertedDate.toString();
         setRecoveryStartDate(newRecoveryStartDate);
         await settingRepo.updateSetting('recoveryStartDate', newRecoveryStartDate);
+    }
+
+    const updateSobrietyStartDate = async (date: Date) => {
+        let convertedDate = toYMDLocal(date);
+        const newSobrietyStartDate = convertedDate.toString();
+        setSobrietyStreakStartDate(newSobrietyStartDate);
+        await settingRepo.updateSetting('sobrietyStreakStartDate', newSobrietyStartDate);
     }
 
 
@@ -52,7 +66,34 @@ export default function SettingsScreen() {
                     <View style={styles.dateDisplay}>
                         <Text style={styles.dateText}>{recoveryStartDate}</Text>
                     </View>
-                    <DateTmePicker label="Change Date" date={new Date(recoveryStartDate)} OnChangeDate={updateRecoveryStartDate}/>
+                    <DateTmePicker label="Change Date" date={new Date(recoveryStartDate)} OnChangeDate={updateRecoveryStartDate} />
+                </Card>
+            )
+        }
+    };
+
+        const renderSobrietyStartSetting = () => {
+        if (!sobrietyStreakStartDate) {
+            return (
+                <Card variant="elevated" style={styles.settingCard}>
+                    <Text style={styles.settingLabel}>Sobriety Streak Start Date</Text>
+                    <Text style={styles.settingDescription}>
+                        Set the date you began your sobriety streak. This helps track your progress.
+                    </Text>
+                    <DateTmePicker label="Select Your Sobriety Streak Start Date" date={new Date()} OnChangeDate={updateSobrietyStartDate} />
+                </Card>
+            )
+        } else {
+            return (
+                <Card variant="elevated" style={styles.settingCard}>
+                    <Text style={styles.settingLabel}>Sobriety Streak Start Date</Text>
+                    <Text style={styles.settingDescription}>
+                        Your sobriety streak began on:
+                    </Text>
+                    <View style={styles.dateDisplay}>
+                        <Text style={styles.dateText}>{sobrietyStreakStartDate}</Text>
+                    </View>
+                    <DateTmePicker label="Change Date" date={new Date(sobrietyStreakStartDate)} OnChangeDate={updateSobrietyStartDate} />
                 </Card>
             )
         }
@@ -68,6 +109,7 @@ export default function SettingsScreen() {
                 </View>
 
                 {renderRecoveryStartSetting()}
+                {renderSobrietyStartSetting()}
             </ScrollView>
         </View>
     )
